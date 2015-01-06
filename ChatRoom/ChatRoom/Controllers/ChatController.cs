@@ -5,7 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+
 using ChatRoom.Models;
+using WebMatrix.WebData;
 
 namespace ChatRoom.Controllers
 {
@@ -49,75 +52,29 @@ namespace ChatRoom.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Chat chat)
         {
-            if (ModelState.IsValid)
+
+            if (String.IsNullOrEmpty(WebSecurity.CurrentUserName))
             {
-                db.Chats.Add(chat);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login","Account");
             }
-
-            return View(chat);
-        }
-
-        //
-        // GET: /Chat/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            Chat chat = db.Chats.Find(id);
-            if (chat == null)
+            else
             {
-                return HttpNotFound();
-            }
-            return View(chat);
-        }
+                
+                if (String.IsNullOrEmpty(chat.Message)==false)
+                {
+                    chat.UserID = WebSecurity.CurrentUserName;
+                    chat.Time = DateTime.Now;
+                    db.Chats.Add(chat);
+                    
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                    
+                }
 
-        //
-        // POST: /Chat/Edit/5
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Chat chat)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(chat).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
             return View(chat);
         }
 
-        //
-        // GET: /Chat/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Chat chat = db.Chats.Find(id);
-            if (chat == null)
-            {
-                return HttpNotFound();
-            }
-            return View(chat);
-        }
-
-        //
-        // POST: /Chat/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Chat chat = db.Chats.Find(id);
-            db.Chats.Remove(chat);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
+       
     }
 }

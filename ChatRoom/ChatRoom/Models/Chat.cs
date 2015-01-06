@@ -10,6 +10,8 @@ namespace ChatRoom.Models
     {
         public Int32 ChatID { get; set; }
 
+        public String UserID { get; set; }
+
         public DateTime Time { get; set; }
        
         [Required()]

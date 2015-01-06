@@ -53,7 +53,7 @@ namespace ChatRoom.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
-
+           
             return RedirectToAction("Index", "Home");
         }
 
