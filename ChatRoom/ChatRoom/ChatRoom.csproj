@@ -191,6 +191,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\ChatContext.cs" />
+    <Compile Include="Models\ChatPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

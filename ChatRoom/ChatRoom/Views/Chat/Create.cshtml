@@ -13,6 +13,13 @@
     <fieldset>
         <legend>Chat</legend>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Time)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Time)
+            @Html.ValidationMessageFor(model => model.Time)
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Message)

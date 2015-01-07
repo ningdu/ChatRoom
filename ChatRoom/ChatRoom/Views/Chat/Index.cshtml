@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ChatRoom.Models.Chat>
+﻿@model ChatRoom.Models.ChatPanel
+
 
 @{
     ViewBag.Title = "Index";
@@ -6,21 +7,55 @@
 
 <h2>Index</h2>
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Chat</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewChat.Message)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NewChat.Message)
+            @Html.ValidationMessageFor(model => model.NewChat.Message)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayNameFor(model => model.NewChat.UserID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Time)
+            @Html.DisplayNameFor(model => model.NewChat.Time)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Chats) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.UserID)

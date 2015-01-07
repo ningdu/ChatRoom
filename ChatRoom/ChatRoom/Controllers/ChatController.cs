@@ -21,36 +21,35 @@ namespace ChatRoom.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Chats.ToList());
+            return View(new ChatPanel() { Chats = db.Chats.ToList(), NewChat = new Chat() });
         }
-
         //
         // GET: /Chat/Details/5
 
-        public ActionResult Details(int id = 0)
-        {
-            Chat chat = db.Chats.Find(id);
-            if (chat == null)
-            {
-                return HttpNotFound();
-            }
-            return View(chat);
-        }
+        //public ActionResult Details(int id = 0)
+        //{
+        //    Chat chat = db.Chats.Find(id);
+        //    if (chat == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(chat);
+        //}
 
         //
         // GET: /Chat/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         //
-        // POST: /Chat/Create
+        // POST: /Chat/Index/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Chat chat)
+        public ActionResult Index(ChatPanel panel)
         {
 
             if (String.IsNullOrEmpty(WebSecurity.CurrentUserName))
@@ -60,11 +59,11 @@ namespace ChatRoom.Controllers
             else
             {
                 
-                if (String.IsNullOrEmpty(chat.Message)==false)
+                if (String.IsNullOrEmpty(panel.NewChat.Message)==false)
                 {
-                    chat.UserID = WebSecurity.CurrentUserName;
-                    chat.Time = DateTime.Now;
-                    db.Chats.Add(chat);
+                    panel.NewChat.UserID = WebSecurity.CurrentUserName;
+                    panel.NewChat.Time = DateTime.Now;
+                    db.Chats.Add(panel.NewChat);
                     
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -72,7 +71,8 @@ namespace ChatRoom.Controllers
                 }
 
             }
-            return View(chat);
+            //return View(chat);
+            return View(new ChatPanel() { Chats = db.Chats.ToList(), NewChat = new Chat() });
         }
 
        
