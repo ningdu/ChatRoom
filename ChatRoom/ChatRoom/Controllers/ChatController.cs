@@ -18,34 +18,14 @@ namespace ChatRoom.Controllers
 
         //
         // GET: /Chat/
-
+        [Authorize()]
         public ActionResult Index()
         {
             return View(new ChatPanel() { Chats = db.Chats.ToList(), NewChat = new Chat() });
         }
-        //
-        // GET: /Chat/Details/5
+       
 
-        //public ActionResult Details(int id = 0)
-        //{
-        //    Chat chat = db.Chats.Find(id);
-        //    if (chat == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(chat);
-        //}
-
-        //
-        // GET: /Chat/Create
-
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //
-        // POST: /Chat/Index/Create
+        // POST: /Chat/Index/
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,7 +51,6 @@ namespace ChatRoom.Controllers
                 }
 
             }
-            //return View(chat);
             return View(new ChatPanel() { Chats = db.Chats.ToList(), NewChat = new Chat() });
         }
 

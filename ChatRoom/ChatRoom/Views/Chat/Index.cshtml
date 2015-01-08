@@ -5,7 +5,42 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NewChat.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewChat.Time)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Chats) {
+    
+    <tr>
+        <td id="td01">
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+    </tr>       
+}
+
+</table>
+<style>
+    td#td01{
+        font-size: 150%;
+    }
+</style>
 
 @using (Html.BeginForm())
 {
@@ -24,53 +59,18 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Post" />
         </p>
     </fieldset>
 }
+@*<p>
+    < input type = "submit"  value = "Refresh Page"  onClick = window.location.reload()>
+</p>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script>
+</script>*@
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-
-
-
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NewChat.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NewChat.Time)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.Chats) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Time)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Message)
-        </td>
-    </tr>
-   
-       
-}
-
-</table>
