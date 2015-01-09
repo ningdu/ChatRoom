@@ -7,40 +7,60 @@
 
 
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NewChat.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NewChat.Time)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.Chats) {
-    
-    <tr>
-        <td id="td01">
+<div class="Table">
+   
+    @foreach (var item in Model.Chats)
+    {
+     <div class="Row">
+        <div class="Cell" style="clear:left; font-size:larger; font-weight:bold">
             @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
+        </div>
+        <div class="Cell">
             @Html.DisplayFor(modelItem => item.Time)
-        </td>
-    </tr>
-    <tr>
-        <td>
+        </div>
+    </div>
+    <div class="Row">
+        <div class="Cell  thin" style="width:90%; font-size:larger">
             @Html.DisplayFor(modelItem => item.Message)
-        </td>
-    </tr>       
-}
+        </div>
+    </div>
+    }
+</div>
 
-</table>
-<style>
-    td#td01{
-        font-size: 150%;
+
+<style type="text/css">
+    .Table
+    {
+        background-color:antiquewhite;
+        height:300px;      
+        overflow:scroll;
+    }
+  
+    .Row{
+        border-left:solid;
+        border-right:solid;
+    }
+    .Cell
+    {
+        padding-left:5px;
+        padding-right:5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        width: 45%;
+        float:left;
+    }
+
+    .underline {
+        border-bottom:solid;
+    }
+
+    .thin {
+        border-bottom-width:thin;
+        border-bottom-style:solid;
+        border-color:white;
     }
 </style>
+
 
 @using (Html.BeginForm())
 {
