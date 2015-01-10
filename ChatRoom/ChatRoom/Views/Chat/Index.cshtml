@@ -5,9 +5,6 @@
     ViewBag.Title = "Index";
 }
 
-
-
-<div class="Table">
    
     @foreach (var item in Model.Chats)
     {
@@ -25,42 +22,8 @@
         </div>
     </div>
     }
-</div>
 
-
-<style type="text/css">
-    .Table
-    {
-        background-color:antiquewhite;
-        height:300px;      
-        overflow:scroll;
-    }
-  
-    .Row{
-        border-left:solid;
-        border-right:solid;
-    }
-    .Cell
-    {
-        padding-left:5px;
-        padding-right:5px;
-        padding-top:5px;
-        padding-bottom:5px;
-        width: 45%;
-        float:left;
-    }
-
-    .underline {
-        border-bottom:solid;
-    }
-
-    .thin {
-        border-bottom-width:thin;
-        border-bottom-style:solid;
-        border-color:white;
-    }
-</style>
-
+<link rel="stylesheet" type="text/css" href="Site.css" >
 
 @using (Html.BeginForm())
 {
@@ -83,13 +46,8 @@
         </p>
     </fieldset>
 }
-@*<p>
-    < input type = "submit"  value = "Refresh Page"  onClick = window.location.reload()>
-</p>
 
-<script>
-</script>*@
-
+@*<meta http-equiv="refresh" content="30">*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

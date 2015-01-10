@@ -53,7 +53,8 @@ namespace ChatRoom.Controllers
             }
             return View(new ChatPanel() { Chats = db.Chats.ToList(), NewChat = new Chat() });
         }
-
        
+
+
     }
 }
