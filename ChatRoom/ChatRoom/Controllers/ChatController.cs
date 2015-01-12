@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 using ChatRoom.Models;
 using WebMatrix.WebData;
+using System.Text;
 
 namespace ChatRoom.Controllers
 {
@@ -17,7 +18,7 @@ namespace ChatRoom.Controllers
         private ChatContext db = new ChatContext();
 
         //
-        // GET: /Chat/
+        // GET: /Chat/Index
         [Authorize()]
         public ActionResult Index()
         {
@@ -26,6 +27,12 @@ namespace ChatRoom.Controllers
        
 
         // POST: /Chat/Index/
+      
+        //public PartialViewResult _PostForm()
+        //{
+        //    Chat chat = new Chat();
+        //    return PartialView("_PostForm", chat);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -34,27 +41,30 @@ namespace ChatRoom.Controllers
 
             if (String.IsNullOrEmpty(WebSecurity.CurrentUserName))
             {
-                return RedirectToAction("Login","Account");
+                return RedirectToAction("Login", "Account");
             }
             else
             {
-                
-                if (String.IsNullOrEmpty(panel.NewChat.Message)==false)
+
+                if (String.IsNullOrEmpty(panel.NewChat.Message) == false)
                 {
                     panel.NewChat.UserID = WebSecurity.CurrentUserName;
                     panel.NewChat.Time = DateTime.Now;
                     db.Chats.Add(panel.NewChat);
-                    
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                    
-                }
 
+                    db.SaveChanges();
+                    return new ContentResult()
+                    {
+                        Content = 
+
+                       @"<div class=""Row""><div class=""Cell"" style=""clear:left; font-size:larger; font-weight:bold"">" + panel.NewChat.UserID + "</div>"+
+                       @"<div class=""Cell"">" + panel.NewChat.Time + "</div></div>"+
+                      @"<div class=""Row""><div class=""Cell  thin"" style=""width:90%; font-size:larger"">"+panel.NewChat.Message+"</div></div>"
+                     //  @"<div id=""fake""></div>"
+                                                };
+                }
             }
             return View(new ChatPanel() { Chats = db.Chats.ToList(), NewChat = new Chat() });
         }
-       
-
-
     }
 }

@@ -1,31 +1,38 @@
 ﻿@model ChatRoom.Models.ChatPanel
-
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
 
 @{
     ViewBag.Title = "Index";
 }
 
-   
+   <div id="panel">
     @foreach (var item in Model.Chats)
     {
-     <div class="Row">
-        <div class="Cell" style="clear:left; font-size:larger; font-weight:bold">
-            @Html.DisplayFor(modelItem => item.UserID)
+
+        <div class="Row">
+            <div class="Cell" style="clear:left; font-size:larger; font-weight:bold">
+                @Html.DisplayFor(modelItem => item.UserID)
+            </div>
+            <div class="Cell">
+                @Html.DisplayFor(modelItem => item.Time)
+            </div>
         </div>
-        <div class="Cell">
-            @Html.DisplayFor(modelItem => item.Time)
+        <div class="Row">
+            <div class="Cell  thin" style="width:90%; font-size:larger">
+                @Html.DisplayFor(modelItem => item.Message)
+            </div>
         </div>
-    </div>
-    <div class="Row">
-        <div class="Cell  thin" style="width:90%; font-size:larger">
-            @Html.DisplayFor(modelItem => item.Message)
-        </div>
-    </div>
     }
+
+</div>
 
 <link rel="stylesheet" type="text/css" href="Site.css" >
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm(new AjaxOptions { InsertionMode = InsertionMode.InsertAfter,
+                                        UpdateTargetId = "panel",
+                                        OnSuccess=@"$(""#NewChat_Message"").val("""")" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -40,7 +47,6 @@
             @Html.EditorFor(model => model.NewChat.Message)
             @Html.ValidationMessageFor(model => model.NewChat.Message)
         </div>
-
         <p>
             <input type="submit" value="Post" />
         </p>
